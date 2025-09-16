@@ -188,16 +188,19 @@ const CreateRecipe = () => {
   const onSubmit = async e => {
     e.preventDefault();
     
-   
     setAlert('');
     
- 
     if (!title || !title.trim()) {
       setAlert('Title is required');
       return;
     }
     
- 
+    // Check if image is required for new recipes
+    if (!isEditMode && !formData.image) {
+      setAlert('Recipe image is required');
+      return;
+    }
+    
     const filteredIngredients = ingredients.filter(ingredient => ingredient && ingredient.trim());
     const filteredSteps = steps.filter(step => step && step.trim());
     
@@ -287,7 +290,9 @@ const CreateRecipe = () => {
         </div>
 
         <div className="form-group">
-          <label className="form-label">Recipe Image</label>
+          <label className="form-label">
+            Recipe Image {!isEditMode && <span style={{ color: 'red' }}>*</span>}
+          </label>
           <div className="image-upload-container">
             {image ? (
               <div className="image-preview">
@@ -317,7 +322,7 @@ const CreateRecipe = () => {
                   </div>
                 )}
                 <p className="upload-hint" style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
-                  Upload a delicious photo of your recipe (max 5MB)
+                  {!isEditMode ? 'Upload a delicious photo of your recipe (required, max 5MB)' : 'Upload a delicious photo of your recipe (max 5MB)'}
                 </p>
               </div>
             )}

@@ -34,7 +34,7 @@ const Navbar = () => {
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
           <img 
-            src="https://static.vecteezy.com/system/resources/previews/055/385/963/non_2x/chef-hat-and-spoons-isometric-render-png.png" 
+            src="https://cdn-icons-png.freepik.com/256/6218/6218197.png?semt=ais_white_label" 
             alt="Recipe Logo" 
             style={{width: '30px', height: '30px', marginRight: '10px'}} 
           />
