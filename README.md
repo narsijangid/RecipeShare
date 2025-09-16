@@ -1,9 +1,19 @@
-# 🍳 RecipeBook - Full-Stack Recipe Sharing Platform
+<img width="1824" height="837" alt="image" src="https://github.com/user-attachments/assets/96654e51-17bb-4041-9c36-30f01a18a7c6" /># 🍳 RecipeBook - Full-Stack Recipe Sharing Platform
 
 A modern, responsive recipe sharing application built with React.js frontend and Node.js/Express backend. Users can discover, create, share, and manage their favorite recipes with features like user authentication, recipe categorization, image uploads, and social interactions.
+<img width="1541" height="847" alt="image" src="https://github.com/user-attachments/assets/64036775-5e76-4979-9634-bc7a71d2eaec" />
+<img width="1804" height="833" alt="image" src="https://github.com/user-attachments/assets/c1241173-a385-4230-a7ba-10d991bec834" />
+<img width="1548" height="844" alt="image" src="https://github.com/user-attachments/assets/6f8a6734-aee7-4923-b6a5-8ac129d1947b" />
+
+
+## Screenshots
+<img width="1824" height="837" alt="image" src="https://github.com/user-attachments/assets/cd307238-14cd-4bea-9d7c-0ed29e6c5587" />
+
+<img width="1796" height="831" alt="image" src="https://github.com/user-attachments/assets/67a50b9d-06c8-4dd3-80d1-0ba980e3ad86" />
+
+
 
 ## 🌟 Features
-
 ### Core Features
 - **User Authentication**: Secure registration and login with JWT tokens
 - **Recipe Management**: Create, edit, and delete personal recipes
