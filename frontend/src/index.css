@@ -805,6 +805,7 @@ html {
 
 .mobile-search .search-input {
   width: 100%;
+  display: none;
   padding: 12px 16px;
   border: 1px solid #ddd;
   border-radius: 25px;
