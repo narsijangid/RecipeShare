@@ -14,7 +14,7 @@ export const RecipeProvider = ({ children }) => {
   const getRecipes = async () => {
     try {
       setLoading(true);
-      const res = await axios.get('http://localhost:5000/api/recipes');
+      const res = await axios.get('https://recipeshare-cqxy.onrender.com/api/recipes');
       setRecipes(res.data);
       setLoading(false);
     } catch (err) {
@@ -27,7 +27,7 @@ export const RecipeProvider = ({ children }) => {
   const getRecipesByCategory = async (category) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/recipes/category/${category}`);
+      const res = await axios.get(`https://recipeshare-cqxy.onrender.com/api/recipes/category/${category}`);
       setRecipes(res.data);
       setLoading(false);
     } catch (err) {
@@ -40,7 +40,7 @@ export const RecipeProvider = ({ children }) => {
   const getRecipe = async (id) => {
     try {
       setLoading(true);
-      const res = await axios.get(`http://localhost:5000/api/recipes/${id}`);
+      const res = await axios.get(`https://recipeshare-cqxy.onrender.com/api/recipes/${id}`);
       setRecipe(res.data);
       setLoading(false);
     } catch (err) {
@@ -53,7 +53,7 @@ export const RecipeProvider = ({ children }) => {
   const createRecipe = async (formData) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.post('http://localhost:5000/api/recipes', formData, {
+      const res = await axios.post('https://recipeshare-cqxy.onrender.com/api/recipes', formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRecipes([res.data, ...recipes]);
@@ -69,7 +69,7 @@ export const RecipeProvider = ({ children }) => {
     try {
       const token = localStorage.getItem('token');
       console.log('Updating recipe with data:', formData);
-      const res = await axios.put(`http://localhost:5000/api/recipes/${id}`, formData, {
+      const res = await axios.put(`https://recipeshare-cqxy.onrender.com/api/recipes/${id}`, formData, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log('Update response:', res.data);
@@ -90,7 +90,7 @@ export const RecipeProvider = ({ children }) => {
     try {
       const token = localStorage.getItem('token');
       console.log('Deleting recipe with id:', id);
-      await axios.delete(`http://localhost:5000/api/recipes/${id}`, {
+      await axios.delete(`https://recipeshare-cqxy.onrender.com/api/recipes/${id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       console.log('Recipe deleted successfully');
@@ -107,7 +107,7 @@ export const RecipeProvider = ({ children }) => {
   const toggleLike = async (id) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put(`http://localhost:5000/api/recipes/like/${id}`, {}, {
+      const res = await axios.put(`https://recipeshare-cqxy.onrender.com/api/recipes/like/${id}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setRecipes(recipes.map(recipe => {
@@ -133,7 +133,7 @@ export const RecipeProvider = ({ children }) => {
     try {
       setLoading(true);
       const token = localStorage.getItem('token');
-      const res = await axios.get('http://localhost:5000/api/recipes/user', {
+      const res = await axios.get('https://recipeshare-cqxy.onrender.com/api/recipes/user', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUserRecipes(res.data);

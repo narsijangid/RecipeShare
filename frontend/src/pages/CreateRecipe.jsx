@@ -35,7 +35,7 @@ const CreateRecipe = () => {
         setLoading(true);
         console.log('Loading recipe for edit, id:', id);
       
-        const res = await axios.get(`http://localhost:5000/api/recipes/${id}?t=${Date.now()}`);
+        const res = await axios.get(`https://recipeshare-cqxy.onrender.com/api/recipes/${id}?t=${Date.now()}`);
         console.log('Fresh recipe data:', res.data);
         setRecipe(res.data); 
         setFormData({
@@ -109,7 +109,7 @@ const CreateRecipe = () => {
       reader.onload = async (event) => {
         try {
           const token = localStorage.getItem('token');
-          const res = await axios.post('http://localhost:5000/api/recipes/upload-image', 
+          const res = await axios.post('https://recipeshare-cqxy.onrender.com/api/recipes/upload-image', 
             { image: event.target.result }, 
             { headers: { Authorization: `Bearer ${token}` } }
           );
