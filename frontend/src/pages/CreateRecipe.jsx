@@ -30,37 +30,52 @@ const CreateRecipe = () => {
   
  
   useEffect(() => {
-    if (isEditMode) {
+    if (isEditMode && id) {
       const loadRecipe = async () => {
         setLoading(true);
         console.log('Loading recipe for edit, id:', id);
-      
-        const res = await axios.get(`https://recipeshare-cqxy.onrender.com/api/recipes/${id}?t=${Date.now()}`);
-        console.log('Fresh recipe data:', res.data);
-        setRecipe(res.data); 
-        setFormData({
-          title: res.data.title || '',
-          category: res.data.category || 'Breakfast',
-          ingredients: res.data.ingredients && res.data.ingredients.length > 0 ? res.data.ingredients : [''],
-          steps: res.data.steps && res.data.steps.length > 0 ? res.data.steps : [''],
-          image: res.data.image || '',
-          imagePublicId: res.data.imagePublicId || ''
-        });
-        setPreviewImage(res.data.image || null);
-        setLoading(false);
+        
+        try {
+          const res = await axios.get(`https://recipeshare-cqxy.onrender.com/api/recipes/${id}?t=${Date.now()}`);
+          console.log('Fresh recipe data:', res.data);
+          
+          // Ensure we have valid data before setting form
+          const recipeData = res.data;
+          if (recipeData) {
+            setFormData({
+              title: recipeData.title || '',
+              category: recipeData.category || 'Breakfast',
+              ingredients: (recipeData.ingredients && Array.isArray(recipeData.ingredients) && recipeData.ingredients.length > 0) 
+                ? recipeData.ingredients 
+                : [''],
+              steps: (recipeData.steps && Array.isArray(recipeData.steps) && recipeData.steps.length > 0) 
+                ? recipeData.steps 
+                : [''],
+              image: recipeData.image || '',
+              imagePublicId: recipeData.imagePublicId || ''
+            });
+            setPreviewImage(recipeData.image || null);
+          }
+        } catch (error) {
+          console.error('Error loading recipe:', error);
+          setAlert('Failed to load recipe data');
+        } finally {
+          setLoading(false);
+        }
       };
+      
       loadRecipe();
-    } else {
-
+    } else if (!isEditMode) {
+      // Reset form for create mode
       setFormData({
-          title: '',
-          category: 'Breakfast',
-          ingredients: [''],
-          steps: [''],
-          image: '',
-          imagePublicId: ''
-        });
-        setPreviewImage(null);
+        title: '',
+        category: 'Breakfast',
+        ingredients: [''],
+        steps: [''],
+        image: '',
+        imagePublicId: ''
+      });
+      setPreviewImage(null);
     }
   }, [isEditMode, id]);
   
