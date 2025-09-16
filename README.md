@@ -51,7 +51,6 @@ A modern, responsive recipe sharing application built with React.js frontend and
 - **MongoDB** with Mongoose ODM
 - **JWT** for authentication
 - **Cloudinary SDK** for image uploads
-- **Multer** for file handling
 - **BcryptJS** for password hashing
 
 ### Development Tools
