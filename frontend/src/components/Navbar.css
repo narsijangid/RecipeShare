@@ -190,8 +190,8 @@
     margin-left: auto;
     position: absolute;
     right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 20%;
+    /* transform: translateY(-50%); */
   }
 
   .nav-menu {
