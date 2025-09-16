@@ -8,7 +8,7 @@ const LatestRecipes = () => {
 
   useEffect(() => {
     if (recipes.length > 0) {
-      // Get 6 random recipes
+    
       const getRandomRecipes = () => {
         const shuffled = [...recipes].sort(() => 0.5 - Math.random());
         return shuffled.slice(0, 6);

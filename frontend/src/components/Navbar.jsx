@@ -24,8 +24,7 @@ const Navbar = () => {
   };
 
   const handleSearch = (searchResults) => {
-    // Search results will be handled by Home page directly
-    // No navigation needed
+  
     closeMenu();
   };
 

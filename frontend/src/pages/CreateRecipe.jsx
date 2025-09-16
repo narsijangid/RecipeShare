@@ -195,7 +195,7 @@ const CreateRecipe = () => {
       return;
     }
     
-    // Check if image is required for new recipes
+    
     if (!isEditMode && !formData.image) {
       setAlert('Recipe image is required');
       return;

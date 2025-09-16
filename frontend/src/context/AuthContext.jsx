@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
 
   const loadUser = async () => {
     try {
-      const res = await axios.get('https://recipeshare-cqxy.onrender.com/api/users/me');
+      const res = await axios.get('http://localhost:5000/api/users/me');
       setUser(res.data);
       setIsAuthenticated(true);
       setLoading(false);
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }) => {
  
   const register = async (formData) => {
     try {
-      const res = await axios.post('https://recipeshare-cqxy.onrender.com/api/users/register', formData);
+      const res = await axios.post('http://localhost:5000/api/users/register', formData);
       const token = res.data.token;
       localStorage.setItem('token', token);
       setAuthToken(token);
@@ -88,7 +88,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (formData) => {
     try {
-      const res = await axios.post('https://recipeshare-cqxy.onrender.com/api/users/login', formData);
+      const res = await axios.post('http://localhost:5000/api/users/login', formData);
       const token = res.data.token;
       localStorage.setItem('token', token);
       setAuthToken(token);
@@ -114,7 +114,7 @@ export const AuthProvider = ({ children }) => {
   const toggleFavorite = async (recipeId) => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.put(`https://recipeshare-cqxy.onrender.com/api/users/favorites/${recipeId}`, {}, {
+      const res = await axios.put(`http://localhost:5000/api/users/favorites/${recipeId}`, {}, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setUser({ ...user, favorites: res.data });
