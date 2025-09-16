@@ -1,0 +1,25 @@
+#root {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* Responsive container */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .app-container {
+    padding: 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .app-container {
+    padding: 0.5rem;
+  }
+}
