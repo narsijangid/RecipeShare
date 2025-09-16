@@ -23,7 +23,7 @@ const Profile = () => {
   const fetchFavoriteRecipes = async () => {
     try {
       setLoadingFavorites(true);
-      const res = await axios.get('http://localhost:5000/api/recipes/favorites');
+      const res = await axios.get('https://recipeshare-cqxy.onrender.com/api/recipes/favorites');
       setFavoriteRecipes(res.data);
       setLoadingFavorites(false);
     } catch (err) {
