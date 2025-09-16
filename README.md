@@ -1,4 +1,4 @@
-# 🍳 RecipeBook - Full-Stack Recipe Sharing Platform
+# 🍳 RecipeShare - Full-Stack Recipe Sharing Platform
 
 A modern, responsive recipe sharing application built with React.js frontend and Node.js/Express backend. Users can discover, create, share, and manage their favorite recipes with features like user authentication, recipe categorization, image uploads, and social interactions.
 
@@ -342,9 +342,6 @@ For support or questions:
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 🙏 Acknowledgments
 
