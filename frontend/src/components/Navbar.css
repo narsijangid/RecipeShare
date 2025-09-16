@@ -33,6 +33,7 @@
   color: white;
   text-decoration: none;
   transition: transform 0.3s ease;
+    margin-top: 10px;
 }
 
 .navbar-logo:hover {
@@ -42,6 +43,7 @@
 .logo-icon {
   font-size: 1.8rem;
   margin-right: 0.5rem;
+
 }
 
 .hamburger {
@@ -190,8 +192,8 @@
     margin-left: auto;
     position: absolute;
     right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 20%;
+    
   }
 
   .nav-menu {
@@ -260,6 +262,10 @@
     height: 22px;
     object-fit: contain;
     vertical-align: middle;
+  }
+
+  .desktop-search {
+    display: none !important;
   }
 }
 
