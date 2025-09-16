@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import SearchBar from './searchbar';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -22,13 +23,28 @@ const Navbar = () => {
     setIsMenuOpen(false);
   };
 
+  const handleSearch = (searchResults) => {
+    // Search results will be handled by Home page directly
+    // No navigation needed
+    closeMenu();
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
         <Link to="/" className="navbar-logo" onClick={closeMenu}>
-          <span className="logo-icon"></span>
+          <img 
+            src="https://static.vecteezy.com/system/resources/previews/055/385/963/non_2x/chef-hat-and-spoons-isometric-render-png.png" 
+            alt="Recipe Logo" 
+            style={{width: '30px', height: '30px', marginRight: '10px'}} 
+          />
           RecipeShare
         </Link>
+        
+        {/* Desktop Search Bar */}
+        <div className="desktop-search">
+          <SearchBar onSearch={handleSearch} placeholder="Search recipes, ingredients..." />
+        </div>
         
         <div className="hamburger" onClick={toggleMenu}>
           <span className={`hamburger-line ${isMenuOpen ? 'open' : ''}`}></span>

@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { RecipeProvider } from './context/RecipeContext';
 import Navbar from './components/Navbar';
-
+import Footer from './components/Footer';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -17,18 +17,23 @@ function App() {
     <AuthProvider>
       <RecipeProvider>
         <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/create-recipe" element={<CreateRecipe />} />
-            <Route path="/recipes" element={<Home />} />
-            <Route path="/recipes/:id" element={<RecipeDetail />} />
-            <Route path="/edit-recipe/:id" element={<CreateRecipe />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <div className="app-container">
+            <Navbar />
+            <main className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/create-recipe" element={<CreateRecipe />} />
+                <Route path="/recipes" element={<Home />} />
+                <Route path="/recipes/:id" element={<RecipeDetail />} />
+                <Route path="/edit-recipe/:id" element={<CreateRecipe />} />
+                <Route path="/profile" element={<Profile />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </main>
+            <Footer />
+          </div>
         </Router>
       </RecipeProvider>
     </AuthProvider>
