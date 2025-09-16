@@ -23,6 +23,14 @@ const RecipeSchema = new mongoose.Schema({
     required: true,
     enum: ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Snack', 'Other']
   },
+  image: {
+    type: String,
+    default: ''
+  },
+  imagePublicId: {
+    type: String,
+    default: ''
+  },
   likes: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

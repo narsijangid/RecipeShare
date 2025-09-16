@@ -87,22 +87,32 @@ const Profile = () => {
               <div className="recipe-grid">
                 {userRecipes.map(recipe => (
                   <div className="recipe-card" key={recipe._id}>
-                  <div className="recipe-content">
-                    <h3 className="recipe-title">{recipe.title}</h3>
-                    <span className="recipe-category">{recipe.category}</span>
-                    <div className="recipe-meta">
-                      <div className="recipe-stats">
-                        <span className="recipe-likes">
-                          <img src="https://static.vecteezy.com/system/resources/previews/018/868/329/non_2x/red-heart-symbol-on-transparent-background-free-png.png" alt="Likes" style={{width: '14px', height: '14px', marginRight: '3px', verticalAlign: 'middle'}} />
-                          <span>{recipe.likes.length}</span>
-                        </span>
+                    {recipe.image && (
+                      <div className="recipe-image-container">
+                        <img 
+                          src={recipe.image} 
+                          alt={recipe.title} 
+                          className="recipe-image"
+                          style={{ width: '100%', height: '150px', objectFit: 'cover' }}
+                        />
                       </div>
+                    )}
+                    <div className="recipe-content">
+                      <h3 className="recipe-title">{recipe.title}</h3>
+                      <span className="recipe-category">{recipe.category}</span>
+                      <div className="recipe-meta">
+                        <div className="recipe-stats">
+                          <span className="recipe-likes">
+                            <img src="https://static.vecteezy.com/system/resources/previews/018/868/329/non_2x/red-heart-symbol-on-transparent-background-free-png.png" alt="Likes" style={{width: '14px', height: '14px', marginRight: '3px', verticalAlign: 'middle'}} />
+                            <span>{recipe.likes.length}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <Link to={`/recipes/${recipe._id}`} className="recipe-view-btn">
+                        View Recipe
+                      </Link>
                     </div>
-                    <Link to={`/recipes/${recipe._id}`} className="recipe-view-btn">
-                      View Recipe
-                    </Link>
                   </div>
-                </div>
                 ))}
               </div>
             ) : (
@@ -127,22 +137,32 @@ const Profile = () => {
               <div className="recipe-grid">
                 {favoriteRecipes.map(recipe => (
                   <div className="recipe-card" key={recipe._id}>
-                  <div className="recipe-content">
-                    <h3 className="recipe-title">{recipe.title}</h3>
-                    <span className="recipe-category">{recipe.category}</span>
-                    <div className="recipe-meta">
-                      <div className="recipe-stats">
-                        <span className="recipe-likes">
-                          <img src="https://static.vecteezy.com/system/resources/previews/018/868/329/non_2x/red-heart-symbol-on-transparent-background-free-png.png" alt="Likes" style={{width: '14px', height: '14px', marginRight: '3px', verticalAlign: 'middle'}} />
-                          <span>{recipe.likes.length}</span>
-                        </span>
+                    {recipe.image && (
+                      <div className="recipe-image-container">
+                        <img 
+                          src={recipe.image} 
+                          alt={recipe.title} 
+                          className="recipe-image"
+                          style={{ width: '100%', height: '150px', objectFit: 'cover' }}
+                        />
                       </div>
+                    )}
+                    <div className="recipe-content">
+                      <h3 className="recipe-title">{recipe.title}</h3>
+                      <span className="recipe-category">{recipe.category}</span>
+                      <div className="recipe-meta">
+                        <div className="recipe-stats">
+                          <span className="recipe-likes">
+                            <img src="https://static.vecteezy.com/system/resources/previews/018/868/329/non_2x/red-heart-symbol-on-transparent-background-free-png.png" alt="Likes" style={{width: '14px', height: '14px', marginRight: '3px', verticalAlign: 'middle'}} />
+                            <span>{recipe.likes.length}</span>
+                          </span>
+                        </div>
+                      </div>
+                      <Link to={`/recipes/${recipe._id}`} className="recipe-view-btn">
+                        View Recipe
+                      </Link>
                     </div>
-                    <Link to={`/recipes/${recipe._id}`} className="recipe-view-btn">
-                      View Recipe
-                    </Link>
                   </div>
-                </div>
                 ))}
               </div>
             ) : (

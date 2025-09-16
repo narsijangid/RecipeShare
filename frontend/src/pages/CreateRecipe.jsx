@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import RecipeContext from '../context/RecipeContext';
 import AuthContext from '../context/AuthContext';
+import { uploadImageToCloudinary } from '../config/cloudinary';
 
 const CreateRecipe = () => {
   const { createRecipe, updateRecipe, getRecipe, recipe, loading: recipeLoading } = useContext(RecipeContext);
@@ -15,13 +16,17 @@ const CreateRecipe = () => {
     title: '',
     category: 'Breakfast',
     ingredients: [''],
-    steps: ['']
+    steps: [''],
+    image: '',
+    imagePublicId: ''
   });
   
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
+  const [previewImage, setPreviewImage] = useState(null);
   
-  const { title, category, ingredients, steps } = formData;
+  const { title, category, ingredients, steps, image } = formData;
   
  
   useEffect(() => {
@@ -37,8 +42,11 @@ const CreateRecipe = () => {
           title: res.data.title || '',
           category: res.data.category || 'Breakfast',
           ingredients: res.data.ingredients && res.data.ingredients.length > 0 ? res.data.ingredients : [''],
-          steps: res.data.steps && res.data.steps.length > 0 ? res.data.steps : ['']
+          steps: res.data.steps && res.data.steps.length > 0 ? res.data.steps : [''],
+          image: res.data.image || '',
+          imagePublicId: res.data.imagePublicId || ''
         });
+        setPreviewImage(res.data.image || null);
         setLoading(false);
       };
       loadRecipe();
@@ -48,8 +56,11 @@ const CreateRecipe = () => {
           title: '',
           category: 'Breakfast',
           ingredients: [''],
-          steps: ['']
+          steps: [''],
+          image: '',
+          imagePublicId: ''
         });
+        setPreviewImage(null);
     }
   }, [isEditMode, id]);
   
@@ -75,6 +86,67 @@ const CreateRecipe = () => {
   
   const onChange = e => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      setAlert('Please select a valid image file');
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      setAlert('Image size should be less than 5MB');
+      return;
+    }
+
+    setUploadingImage(true);
+    
+    try {
+      const reader = new FileReader();
+      reader.onload = async (event) => {
+        try {
+          const token = localStorage.getItem('token');
+          const res = await axios.post('http://localhost:5000/api/recipes/upload-image', 
+            { image: event.target.result }, 
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          
+          if (res.data.success) {
+            setFormData({
+              ...formData,
+              image: res.data.imageUrl,
+              imagePublicId: res.data.publicId
+            });
+            setPreviewImage(res.data.imageUrl);
+            setAlert(null);
+          } else {
+            setAlert('Failed to upload image');
+          }
+        } catch (err) {
+          console.error('Image upload error:', err);
+          setAlert('Error uploading image. Please try again.');
+        } finally {
+          setUploadingImage(false);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch (err) {
+      console.error('File reading error:', err);
+      setAlert('Error reading file. Please try again.');
+      setUploadingImage(false);
+    }
+  };
+
+  const removeImage = () => {
+    setFormData({
+      ...formData,
+      image: '',
+      imagePublicId: ''
+    });
+    setPreviewImage(null);
   };
   
   const handleIngredientChange = (index, value) => {
@@ -143,7 +215,9 @@ const CreateRecipe = () => {
       title: title.trim(),
       category,
       ingredients: filteredIngredients,
-      steps: filteredSteps
+      steps: filteredSteps,
+      image: formData.image,
+      imagePublicId: formData.imagePublicId
     };
     
     console.log('Submitting recipe data:', recipeData);
@@ -211,8 +285,44 @@ const CreateRecipe = () => {
             <option value="Other">Other</option>
           </select>
         </div>
-        
 
+        <div className="form-group">
+          <label className="form-label">Recipe Image</label>
+          <div className="image-upload-container">
+            {image ? (
+              <div className="image-preview">
+                <img src={image} alt="Recipe preview" className="recipe-image-preview" style={{ width: '100%', maxHeight: '200px', objectFit: 'cover', borderRadius: '8px' }} />
+                <button 
+                  type="button" 
+                  onClick={removeImage} 
+                  className="remove-image-btn"
+                  style={{ marginTop: '10px', backgroundColor: '#e74c3c', color: 'white', padding: '5px 10px', borderRadius: '4px', border: 'none' }}
+                >
+                  Remove Image
+                </button>
+              </div>
+            ) : (
+              <div className="upload-area">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  disabled={uploadingImage}
+                  className="form-input"
+                  style={{ padding: '10px' }}
+                />
+                {uploadingImage && (
+                  <div style={{ marginTop: '10px', color: '#666' }}>
+                    Uploading image...
+                  </div>
+                )}
+                <p className="upload-hint" style={{ fontSize: '12px', color: '#666', marginTop: '5px' }}>
+                  Upload a delicious photo of your recipe (max 5MB)
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
         
         <div className="form-group">
           <label className="form-label">Ingredients</label>

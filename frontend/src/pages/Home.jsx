@@ -50,6 +50,16 @@ const Home = () => {
         <div className="recipes-container">
           {recipes.map(recipe => (
             <div key={recipe._id} className="recipe-card">
+              {recipe.image && (
+                <div className="recipe-image-container">
+                  <img 
+                    src={recipe.image} 
+                    alt={recipe.title} 
+                    className="recipe-image"
+                    style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                  />
+                </div>
+              )}
               <div className="recipe-content">
                 <h3 className="recipe-title">{recipe.title}</h3>
                 <span className="recipe-category">{recipe.category}</span>
