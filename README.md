@@ -5,7 +5,6 @@ A modern, responsive recipe sharing application built with React.js frontend and
 
 
 ## Screenshots
-<img width="600" height="837" alt="image" src="https://github.com/user-attachments/assets/96654e51-17bb-4041-9c36-30f01a18a7c6" />
 <img width="600" height="837" alt="image" src="https://github.com/user-attachments/assets/cd307238-14cd-4bea-9d7c-0ed29e6c5587" />
 <img width="600" height="847" alt="image" src="https://github.com/user-attachments/assets/64036775-5e76-4979-9634-bc7a71d2eaec" />
 <img width="600" height="833" alt="image" src="https://github.com/user-attachments/assets/c1241173-a385-4230-a7ba-10d991bec834" />
@@ -74,7 +73,7 @@ Before running this project, ensure you have the following installed:
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/narsijangid/RecipeShare.git>
 cd Recipe
 ```
 
