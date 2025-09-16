@@ -21,6 +21,8 @@ const CreateRecipe = () => {
     imagePublicId: ''
   });
   
+  const [originalData, setOriginalData] = useState(null);
+  const [hasChanges, setHasChanges] = useState(false);
   const [alert, setAlert] = useState(null);
   const [loading, setLoading] = useState(false);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -42,7 +44,7 @@ const CreateRecipe = () => {
           // Ensure we have valid data before setting form
           const recipeData = res.data;
           if (recipeData) {
-            setFormData({
+            const initialFormData = {
               title: recipeData.title || '',
               category: recipeData.category || 'Breakfast',
               ingredients: (recipeData.ingredients && Array.isArray(recipeData.ingredients) && recipeData.ingredients.length > 0) 
@@ -53,7 +55,10 @@ const CreateRecipe = () => {
                 : [''],
               image: recipeData.image || '',
               imagePublicId: recipeData.imagePublicId || ''
-            });
+            };
+            setFormData(initialFormData);
+            setOriginalData(JSON.parse(JSON.stringify(initialFormData))); // Deep copy for comparison
+            setHasChanges(false);
             setPreviewImage(recipeData.image || null);
           }
         } catch (error) {
@@ -100,7 +105,11 @@ const CreateRecipe = () => {
   }
   
   const onChange = e => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const newFormData = { ...formData, [e.target.name]: e.target.value };
+    setFormData(newFormData);
+    if (isEditMode && originalData) {
+      setHasChanges(!isDeepEqual(newFormData, originalData));
+    }
   };
 
   const handleImageUpload = async (e) => {
@@ -130,13 +139,17 @@ const CreateRecipe = () => {
           );
           
           if (res.data.success) {
-            setFormData({
+            const newFormData = {
               ...formData,
               image: res.data.imageUrl,
               imagePublicId: res.data.publicId
-            });
+            };
+            setFormData(newFormData);
             setPreviewImage(res.data.imageUrl);
             setAlert(null);
+            if (isEditMode && originalData) {
+              setHasChanges(!isDeepEqual(newFormData, originalData));
+            }
           } else {
             setAlert('Failed to upload image');
           }
@@ -156,47 +169,79 @@ const CreateRecipe = () => {
   };
 
   const removeImage = () => {
-    setFormData({
+    const newFormData = {
       ...formData,
       image: '',
       imagePublicId: ''
-    });
+    };
+    setFormData(newFormData);
     setPreviewImage(null);
+    if (isEditMode && originalData) {
+      setHasChanges(!isDeepEqual(newFormData, originalData));
+    }
   };
   
+  const isDeepEqual = (obj1, obj2) => {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+  };
+
   const handleIngredientChange = (index, value) => {
     const newIngredients = [...ingredients];
     newIngredients[index] = value;
-    setFormData({ ...formData, ingredients: newIngredients });
+    const newFormData = { ...formData, ingredients: newIngredients };
+    setFormData(newFormData);
+    if (isEditMode && originalData) {
+      setHasChanges(!isDeepEqual(newFormData, originalData));
+    }
   };
   
   const addIngredient = () => {
-    setFormData({ ...formData, ingredients: [...ingredients, ''] });
+    const newFormData = { ...formData, ingredients: [...ingredients, ''] };
+    setFormData(newFormData);
+    if (isEditMode && originalData) {
+      setHasChanges(!isDeepEqual(newFormData, originalData));
+    }
   };
   
   const removeIngredient = index => {
     if (ingredients.length > 1) {
       const newIngredients = [...ingredients];
       newIngredients.splice(index, 1);
-      setFormData({ ...formData, ingredients: newIngredients });
+      const newFormData = { ...formData, ingredients: newIngredients };
+      setFormData(newFormData);
+      if (isEditMode && originalData) {
+        setHasChanges(!isDeepEqual(newFormData, originalData));
+      }
     }
   };
   
   const handleStepChange = (index, value) => {
     const newSteps = [...steps];
     newSteps[index] = value;
-    setFormData({ ...formData, steps: newSteps });
+    const newFormData = { ...formData, steps: newSteps };
+    setFormData(newFormData);
+    if (isEditMode && originalData) {
+      setHasChanges(!isDeepEqual(newFormData, originalData));
+    }
   };
   
   const addStep = () => {
-    setFormData({ ...formData, steps: [...steps, ''] });
+    const newFormData = { ...formData, steps: [...steps, ''] };
+    setFormData(newFormData);
+    if (isEditMode && originalData) {
+      setHasChanges(!isDeepEqual(newFormData, originalData));
+    }
   };
   
   const removeStep = index => {
     if (steps.length > 1) {
       const newSteps = [...steps];
       newSteps.splice(index, 1);
-      setFormData({ ...formData, steps: newSteps });
+      const newFormData = { ...formData, steps: newSteps };
+      setFormData(newFormData);
+      if (isEditMode && originalData) {
+        setHasChanges(!isDeepEqual(newFormData, originalData));
+      }
     }
   };
   
@@ -407,7 +452,17 @@ const CreateRecipe = () => {
           </button>
         </div>
         
-        <button type="submit" className="btn btn-primary btn-block" style={{ marginTop: '20px' }}>
+        <button 
+          type="submit" 
+          className="btn btn-primary btn-block" 
+          style={{ 
+            marginTop: '20px',
+            opacity: isEditMode && !hasChanges ? 0.6 : 1,
+            cursor: isEditMode && !hasChanges ? 'not-allowed' : 'pointer'
+          }}
+          disabled={isEditMode && !hasChanges}
+          title={isEditMode && !hasChanges ? 'Make some changes to enable update' : ''}
+        >
           {isEditMode ? 'Update Recipe' : 'Create Recipe'}
         </button>
       </form>
