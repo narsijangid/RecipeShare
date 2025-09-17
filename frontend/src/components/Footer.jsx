@@ -8,7 +8,7 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-content">
         <div className="footer-section">
-          <h3>RecipeBook</h3>
+          <h3>RecipeShare</h3>
           <p>
             Discover, create, and share amazing recipes from around the world. 
             Join our community of food lovers and culinary enthusiasts.
