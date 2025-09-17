@@ -2,6 +2,11 @@
 
 A modern, responsive recipe sharing application built with React.js frontend and Node.js/Express backend. Users can discover, create, share, and manage their favorite recipes with features like user authentication, recipe categorization, image uploads, and social interactions.
 
+## Demo Credentials:
+
+Email: demo@gmail.com
+
+Password: 12345678
 
 
 ## Screenshots
