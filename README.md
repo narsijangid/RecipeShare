@@ -334,21 +334,4 @@ For support or questions:
 - Check existing issues for solutions
 - Review this README for setup guidance
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-
-## 🙏 Acknowledgments
-
-- Built with modern web technologies
-- Inspired by the cooking community
-- Special thanks to all contributors
-
----
-
 **Happy Cooking! 🍳** Share your favorite recipes with the world!
